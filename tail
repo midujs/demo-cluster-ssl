@@ -1,0 +1,12 @@
+About to remove manager
+Error removing host "manager": Docker machine "manager" does not exist. Use "docker-machine ls" to list machines. Use "docker-machine create" to add a new one.
+WARNING: This action will delete both local reference and remote instance.
+Can't remove "manager"
+About to remove worker1
+Error removing host "worker1": Docker machine "worker1" does not exist. Use "docker-machine ls" to list machines. Use "docker-machine create" to add a new one.
+WARNING: This action will delete both local reference and remote instance.
+Can't remove "worker1"
+About to remove worker2
+WARNING: This action will delete both local reference and remote instance.
+Error removing host "worker2": Docker machine "worker2" does not exist. Use "docker-machine ls" to list machines. Use "docker-machine create" to add a new one.
+Can't remove "worker2"
