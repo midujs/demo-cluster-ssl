@@ -1,0 +1,59 @@
+version: "3.3"
+
+services:
+  app:
+    image: swarmpit/swarmpit:latest
+    environment:
+      - SWARMPIT_DB=http://db:5984
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - 888:8080
+    networks:
+      - net
+      - traefik-net
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - traefik.enable=true
+        - traefik.port=8080
+        - traefik.frontend.rule=Host:${DOMAIN}
+        - traefik.protocol=http
+
+  db:
+    image: couchdb:2.3.0
+    volumes:
+      - db-data:/opt/couchdb/data
+    networks:
+      - net
+
+  agent:
+    image: swarmpit/agent:latest
+    environment:
+      - DOCKER_API_VERSION=1.35
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - net
+    deploy:
+      mode: global
+      resources:
+        limits:
+          cpus: "0.10"
+          memory: 64M
+        reservations:
+          cpus: "0.05"
+          memory: 32M
+
+networks:
+  net:
+    driver: overlay
+    attachable: true
+  traefik-net:
+    external: true
+
+volumes:
+  db-data:
+    driver: local
