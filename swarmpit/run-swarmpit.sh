@@ -11,7 +11,9 @@ docker-machine scp ./swarmpit/docker-compose.yml manager:${SWARMPIT_COMPOSE_DIR}
 
 ### Run stack
 docker-machine ssh manager "docker stack rm ${STACK_NAME}"
-docker-machine ssh manager "DOMAIN=${DOMAIN} docker stack deploy --compose-file ${SWARMPIT_COMPOSE_DIR}/docker-compose.yml ${STACK_NAME}"
+docker-machine ssh manager "
+  DOMAIN=${DOMAIN} \
+  docker stack deploy --compose-file ${SWARMPIT_COMPOSE_DIR}/docker-compose.yml ${STACK_NAME}"
 
 ### Log info
 docker-machine ssh manager "docker stack ps ${STACK_NAME}"

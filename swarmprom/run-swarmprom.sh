@@ -14,7 +14,13 @@ docker-machine scp -r ./swarmprom manager:${COMPOSE_DIR}/
 
 ### Create stack
 docker-machine ssh manager "docker stack rm ${STACK_NAME} || true"
-docker-machine ssh manager "cd ${COMPOSE_DIR}/${STACK_NAME} && DOMAIN=${DOMAIN} ADMIN_USER=${ADMIN_USER} ADMIN_PASSWORD=${ADMIN_PASSWORD} docker stack deploy --compose-file docker-compose.yml ${STACK_NAME}"
+docker-machine ssh manager "
+  cd ${COMPOSE_DIR}/${STACK_NAME} && \
+  DOMAIN=${DOMAIN} \
+  ADMIN_USER=${ADMIN_USER} \
+  ADMIN_PASSWORD=${ADMIN_PASSWORD} \
+  docker stack deploy --compose-file docker-compose.yml ${STACK_NAME}
+  "
 
 ### Log info
 docker-machine ssh manager "docker stack ps ${STACK_NAME}"
