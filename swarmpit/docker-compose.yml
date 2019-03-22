@@ -34,13 +34,6 @@ services:
       - net
     deploy:
       mode: global
-      resources:
-        limits:
-          cpus: "0.10"
-          memory: 64M
-        reservations:
-          cpus: "0.05"
-          memory: 32M
 
   db:
     image: couchdb:2.3.0
